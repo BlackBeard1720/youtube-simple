@@ -9,7 +9,7 @@ function SearchBar({onSearch}){
         onSearch(keyword);
     }
     return (
-        <form onSubmit={handleSubmit} className="md:flex w-full max-w-md hidden">
+        <form onSubmit={handleSubmit} className={`flex items-center w-full max-w-md `}>
             <input 
                 type="text" 
                 placeholder="Search" 

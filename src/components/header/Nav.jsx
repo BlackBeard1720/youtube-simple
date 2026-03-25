@@ -4,9 +4,8 @@ import UserMenu from "./UserMenu";
 import { MenuIcon } from "lucide-react";
 
 function Nav({onSearch, onToggle}) {
-
     return (
-        <nav className="fixed top-0 left-0 w-full py-3 shadow z-10 bg-white">
+        <nav className="fixed top-0 left-0 w-full py-2 shadow z-10 bg-white">
             <div className="mx-auto px-3">
                 <div className="flex items-center justify-between gap-3">
                     <button 
@@ -18,7 +17,7 @@ function Nav({onSearch, onToggle}) {
                     <Logo/>
                     <SearchBar onSearch={onSearch}/>
                     <UserMenu/>
-                </div>
+                </div>                    
             </div>
         </nav>
     );
