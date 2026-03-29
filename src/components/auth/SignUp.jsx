@@ -1,8 +1,8 @@
 import { ChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast} from "../../context/ToastContext";
-
+import { useNavigate } from "react-router-dom";
 const ErrorMessage = ({children}) => {
     return <small className="text-red-500">{children}</small>;
 }  
@@ -10,8 +10,9 @@ export default function SignUp() {
     const [email, setEmail] = useState({value: "", isTouched: false});
     const [password, setPassword] = useState({value: "", isTouched: false});
     const [confirmPassword, setConfirmPassword] = useState({value: "", isTouched: false});
-
     const {showToast} = useToast();
+    const navigate = useNavigate();
+
     // Validation
     const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -64,17 +65,20 @@ export default function SignUp() {
             message: "Sign up successful!",
             type: "success"
         });
+        setTimeout(() => {
+            navigate("/signin");
+        }, 1000)
     }
 
     return (
         <div className="h-screen flex items-center justify-center bg-gray-50 p-4 font-sans relative">
-            <a
-                href="/"
+            <Link
+                to="/"
                 className="absolute top-6 left-6 flex items-center gap-1 text-gray-500 hover:text-blue-600 transition-colors duration-200 group"
             >
                 <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
                 <span className="font-medium">Back</span>
-            </a>
+            </Link>
             <form 
                 className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-100"
                 onSubmit={handleSubmit}

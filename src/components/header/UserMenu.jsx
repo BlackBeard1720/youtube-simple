@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { UserCircle, LogIn, UserPlus, LogOut } from "lucide-react";
-
+import { UserCircle, LogIn, UserPlus, LogOut, Home, Heart } from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
 function UserMenu() {
     const [open, setOpen] = useState(false);
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const currentUser = localStorage.getItem("current_user");
-        if (currentUser) {
-            setUser(JSON.parse(currentUser));
-        }
-    }, []);
+    const { user, logOut } = useAuth();
 
     return (
         <div className="relative">
@@ -43,52 +36,76 @@ function UserMenu() {
                             rounded-lg shadow-md py-3 origin-top-right">
                 {/* Header */}
                 <div className="px-4 pb-3 border-b border-gray-100 mb-2 flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center 
-                                text-white text-lg font-bold mb-2">
-                    {user ? user.email.charAt(0).toUpperCase() : "?"}
-                </div>
-                <p className="text-sm font-medium text-black truncate w-full text-center px-2">
-                    {user ? user.email : "Guest"}
-                </p>
+                    <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center 
+                                    text-white text-lg font-bold mb-2">
+                        {user ? user.email.charAt(0).toUpperCase() : "?"}
+                    </div>
+                    <p className="text-sm font-medium text-black truncate w-full text-center px-2">
+                        {user ? user.email : "Guest"}
+                    </p>
                 </div>
 
                 {/* Links */}
                 <ul className="flex flex-col">
-                {user ? (
-                    <li>
-                    <Link
-                        className="flex items-center gap-3 px-4 py-2 text-sm text-black 
-                                hover:bg-gray-100 transition-colors"
-                        to="/signout"
-                    >
-                        <LogOut size={18} className="text-gray-500" />
-                        Sign out
-                    </Link>
-                    </li>
-                ) : (
-                    <>
-                    <li>
+                    {/* --- CHÈN THÊM 2 NÚT NÀY CHO MOBILE --- */}
+                    <li className="lg:hidden"> {/* Chỉ hiện trên mobile/tablet, ẩn trên desktop */}
                         <Link
-                        className="flex items-center gap-3 px-4 py-2 text-sm text-black 
-                                    hover:bg-gray-100 transition-colors"
-                        to="/signin"
+                            to="/"
+                            className="flex items-center gap-3 px-4 py-2 text-sm text-black hover:bg-gray-100 transition-colors"
+                            onClick={() => setOpen(false)}
                         >
-                        <LogIn size={18} className="text-gray-500" />
-                        Sign in
+                            <Home size={18} className="text-gray-500" />
+                            Home
                         </Link>
                     </li>
-                    <li>
+                    <li className="lg:hidden">
                         <Link
-                        className="flex items-center gap-3 px-4 py-2 text-sm text-black 
-                                    hover:bg-gray-100 transition-colors"
-                        to="/signup"
+                            to="/favorites"
+                            className="flex items-center gap-3 px-4 py-2 text-sm text-black hover:bg-gray-100 transition-colors"
+                            onClick={() => setOpen(false)}
                         >
-                        <UserPlus size={18} className="text-gray-500" />
-                        Sign up
+                            <Heart size={18} className="text-gray-500" />
+                            Liked videos
                         </Link>
                     </li>
-                    </>
-                )}
+                    {/* Kẻ vạch ngang phân cách nếu là mobile */}
+                    <div className="lg:hidden border-b border-gray-100 my-1"></div>
+
+                    {user ? (
+                        <li>
+                            <button
+                                className="flex items-center gap-3 px-4 py-2 text-sm text-black 
+                                        hover:bg-gray-100 transition-colors"
+                                onClick={logOut}
+                            >
+                                <LogOut size={18} className="text-gray-500" />
+                                Sign out
+                            </button>
+                        </li>
+                    ) : (
+                        <>
+                            <li>
+                                <Link
+                                className="flex items-center gap-3 px-4 py-2 text-sm text-black 
+                                            hover:bg-gray-100 transition-colors"
+                                to="/signin"
+                                >
+                                <LogIn size={18} className="text-gray-500" />
+                                Sign in
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                className="flex items-center gap-3 px-4 py-2 text-sm text-black 
+                                            hover:bg-gray-100 transition-colors"
+                                to="/signup"
+                                >
+                                <UserPlus size={18} className="text-gray-500" />
+                                Sign up
+                                </Link>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </div>
             </>

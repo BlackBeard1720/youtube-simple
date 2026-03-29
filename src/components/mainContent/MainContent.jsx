@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 import mockData from "../../mockData";
 
 function MainContent({search}) {
-    const [videos, setVideos] = useState([]);
+    const [videos, setVideos] = useState(mockData);
     const [loading, setLoading] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [nextPageToken, setNextPageToken] = useState(null);
@@ -13,7 +13,7 @@ function MainContent({search}) {
     const fetchData = async (search, pageToken = "") => {
         setLoading(true);
         const baseURL = 'https://www.googleapis.com/youtube/v3';
-        const apiKey = 'AIzaSyA2oPq4AoSH7-ULiNU_J_uHOV7Jr4rMrlM';
+        const apiKey = 'AIzaSyAAb64d3AoDvEqvrF14OXburZb0KhmYrzQ';
         const params = new URLSearchParams({
             part: "snippet",
             q: search,
@@ -60,7 +60,7 @@ function MainContent({search}) {
         fetchData(search, prevPageToken);
     }
     return (
-        <div className="">
+        <div className="pt-20 px-4 md:px-8 max-w-400 mx-auto">
             {loading ? 
             (<div className="
                 w-24 h-24 
