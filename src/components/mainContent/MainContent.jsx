@@ -13,7 +13,7 @@ function MainContent({search}) {
     const fetchData = async (search, pageToken = "") => {
         setLoading(true);
         const baseURL = 'https://www.googleapis.com/youtube/v3';
-        const apiKey = 'AIzaSyAAb64d3AoDvEqvrF14OXburZb0KhmYrzQ';
+        const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
         const params = new URLSearchParams({
             part: "snippet",
             q: search,
