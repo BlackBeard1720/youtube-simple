@@ -8,7 +8,7 @@ import MainContent from './components/mainContent/MainContent';
 import FavoritesPage from './components/mainContent/FavoritesPage'; // Import trang yêu thích
 
 function App() {
-  const [search, setSearch] = useState("Ba tan vlog");
+  const [search, setSearch] = useState("The boys");
   const [openSideBar, setOpenSideBar] = useState(false);
 
   return (
